@@ -6,14 +6,14 @@ class CRUD {
     this.serviceName = _serviceName;
   }
 
-  async _paginateQuery(query, { limit, page, sort }, populate = '') {
+  async _paginatedQuery({ limit, page, sort }, query = {}, mod = { __v: 0 }, populate = '') {
     const _limit = Number(limit) || 10;
     const _skip = Number((page - 1) * limit) || 0;
     const _sort = sort || { createdAt: -1 };
 
     const result = await Promise.all([
-      this.Model.find(query, { __v: 0 }).skip(_skip).limit(_limit).sort(_sort).populate(populate),
-      this.Model.find(query, { __v: 0 }).countDocuments(),
+      this.Model.find(query, mod).skip(_skip).limit(_limit).sort(_sort).populate(populate),
+      this.Model.find(query, mod).countDocuments(),
     ]);
 
     if (Number(page) * limit < result[1]) {
@@ -21,7 +21,7 @@ class CRUD {
         page,
         next: page + 1,
         limit: _limit,
-        users: result[0],
+        data: result[0],
         total: result[1],
       };
     }
@@ -29,7 +29,7 @@ class CRUD {
       page,
       next: null,
       limit: _limit,
-      users: result[0],
+      data: result[0],
       total: result[1],
     };
   }
@@ -62,8 +62,8 @@ class CRUD {
     return count;
   }
 
-  async getAll(limit, page, query = {}) {
-    this._paginateQuery(query, { limit, page });
+  async getAll(limit, page) {
+    return this._paginatedQuery({ limit, page });
   }
 
   async update(id, _data) {

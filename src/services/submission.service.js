@@ -2,8 +2,8 @@ const Submission = require('../models/submission');
 const CRUD = require('./factories/crud.factory');
 
 class SubmissionService extends CRUD {
-  async getFormSubmissions(formId) {
-    this.Model.find({ form: formId });
+  async getFormSubmissions(formId, limit, page) {
+    this._paginatedQuery({ limit, page }, { form: formId });
   }
 }
 
