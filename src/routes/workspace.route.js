@@ -35,9 +35,10 @@ module.exports = app => {
   route.get('/:workspaceId/members', WorkspaceController.getOne);
 
   // Forms Routes
-  route.post('/:workspaceId/forms/create', FormController.create);
+  route.post('/:workspaceId/forms', FormController.create);
+  route.get('/:workspaceId/forms', FormController.getAll);
   route.get('/:workspaceId/forms/:formId', FormController.getOne);
-  // route.get('/:workspaceId/forms/:formId/submissions', FormController.getSubmissions);
+  route.get('/:workspaceId/forms/:formId/submissions', FormController.getSubmissions);
   // route.get('/:workspaceId/forms/:formId/analytics', WorkspaceController.getAnalytics);
   // route.get('/:workspaceId/forms/:formId/exports', WorkspaceController.export);
   // route.get('/:workspaceId/forms/:formId/settings', WorkspaceController.settings);

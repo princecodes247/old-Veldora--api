@@ -12,7 +12,7 @@ module.exports = app => {
     '/:formId',
     celebrate({
       body: Joi.object({
-        data: Joi.object(),
+        data: Joi.object().required(),
       }),
     }),
     SubmissionController.create
