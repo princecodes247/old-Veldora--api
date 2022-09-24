@@ -6,6 +6,34 @@ class CRUD {
     this.serviceName = _serviceName;
   }
 
+  async _paginateQuery(query, { limit, page, sort }, populate = '') {
+    const _limit = Number(limit) || 10;
+    const _skip = Number((page - 1) * limit) || 0;
+    const _sort = sort || { createdAt: -1 };
+
+    const result = await Promise.all([
+      this.Model.find(query, { __v: 0 }).skip(_skip).limit(_limit).sort(_sort).populate(populate),
+      this.Model.find(query, { __v: 0 }).countDocuments(),
+    ]);
+
+    if (Number(page) * limit < result[1]) {
+      return {
+        page,
+        next: page + 1,
+        limit: _limit,
+        users: result[0],
+        total: result[1],
+      };
+    }
+    return {
+      page,
+      next: null,
+      limit: _limit,
+      users: result[0],
+      total: result[1],
+    };
+  }
+
   async create(data) {
     const result = new this.Model(data);
     await result.save().catch(err => {
@@ -34,32 +62,8 @@ class CRUD {
     return count;
   }
 
-  async getAll(limit, page) {
-    const _limit = Number(limit) || 10;
-    const _skip = Number((page - 1) * limit) || 0;
-
-    const result = await Promise.all([
-      this.Model.find({}, { __v: 0 }).skip(_skip).limit(_limit),
-      // .populate('workspaces'),
-      this.Model.countDocuments(),
-    ]);
-
-    if (Number(page) * limit < result[1]) {
-      return {
-        page,
-        next: page + 1,
-        limit: _limit,
-        users: result[0],
-        total: result[1],
-      };
-    }
-    return {
-      page,
-      next: null,
-      limit: _limit,
-      users: result[0],
-      total: result[1],
-    };
+  async getAll(limit, page, query = {}) {
+    this._paginateQuery(query, { limit, page });
   }
 
   async update(id, _data) {
