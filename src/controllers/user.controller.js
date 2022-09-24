@@ -1,14 +1,25 @@
+const logger = require('../loaders/logger');
 const UserService = require('../services/user.service');
 
 class UserController {
-  async getAllUsers(req, res) {
-    const users = await UserService.getAll();
-    return res.json({ users }).status(200);
+  async getAllUsers(req, res, next) {
+    try {
+      const users = await UserService.getAll();
+      return res.json({ users }).status(200);
+    } catch (e) {
+      logger.error('🔥 error: %o', e);
+      return next(e);
+    }
   }
 
-  async getOne(req, res) {
-    const users = await UserService.getOne(req.userId);
-    return res.json({ users }).status(200);
+  async getOne(req, res, next) {
+    try {
+      const users = await UserService.getOne(req.userId);
+      return res.json({ users }).status(200);
+    } catch (e) {
+      logger.error('🔥 error: %o', e);
+      return next(e);
+    }
   }
 
   async test(req, res) {
