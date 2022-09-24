@@ -12,7 +12,7 @@ class CRUD {
     const _sort = sort || { createdAt: -1 };
 
     const result = await Promise.all([
-      this.Model.find(query, mod).skip(_skip).limit(_limit).sort(_sort).populate(populate),
+      this.Model.find(query, mod).skip(_skip).limit(_limit).sort(_sort).lean().populate(populate),
       this.Model.find(query, mod).countDocuments(),
     ]);
 
@@ -48,7 +48,7 @@ class CRUD {
   }
 
   async getOne(id) {
-    const item = await this.Model.findOne({ _id: id }, { __v: 0 });
+    const item = await this.Model.findOne({ _id: id }, { __v: 0 }).lean();
     // const item = await this.Model.findOne({ _id: id }, { password: 0, __v: 0 });
     if (!item) {
       throw new Error(`${this.serviceName} does not exist`);
