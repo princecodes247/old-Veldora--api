@@ -5,6 +5,7 @@ const WorkspaceController = require('../controllers/workspace.controller');
 const FormController = require('../controllers/form.controller');
 // const SuController = require('../controllers/user.controller');
 const { attachCurrentUser, isAuth } = require('../middlewares');
+const SubmissionController = require('../controllers/submission.controller');
 
 const route = Router();
 
@@ -38,7 +39,7 @@ module.exports = app => {
   route.post('/:workspaceId/forms', FormController.create);
   route.get('/:workspaceId/forms', FormController.getAll);
   route.get('/:workspaceId/forms/:formId', FormController.getOne);
-  route.get('/:workspaceId/forms/:formId/submissions', FormController.getSubmissions);
+  route.get('/:workspaceId/forms/:formId/submissions', SubmissionController.getFormSubmissions);
   // route.get('/:workspaceId/forms/:formId/analytics', WorkspaceController.getAnalytics);
   // route.get('/:workspaceId/forms/:formId/exports', WorkspaceController.export);
   // route.get('/:workspaceId/forms/:formId/settings', WorkspaceController.settings);

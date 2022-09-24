@@ -33,8 +33,8 @@ class SubmissionController {
     }
   }
 
-  async test(req, res) {
-    const test = await SubmissionService.test();
+  async getFormSubmissions(req, res) {
+    const test = await SubmissionService.getFormSubmissions();
     return res.json({ test }).status(200);
   }
 }

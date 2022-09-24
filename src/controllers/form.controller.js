@@ -32,11 +32,6 @@ class FormController {
       return next(e);
     }
   }
-
-  async test(req, res) {
-    const test = await FormService.test();
-    return res.json({ test }).status(200);
-  }
 }
 
 module.exports = new FormController();
