@@ -3,7 +3,7 @@ const WorkspaceService = require('../services/workspace.service');
 
 class WorkspaceController {
   async getAll(req, res, next) {
-    logger.debug('Calling Sign-Up endpoint with body: %o', req.body);
+    logger.debug('Calling Get all workspace endpoint with body: %o', req.body);
     try {
       const users = await WorkspaceService.getAll();
       return res.json({ users }).status(200);

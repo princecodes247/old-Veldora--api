@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-
+const rateLimit = require('express-rate-limit');
 const methodOverride = require('method-override');
 
 const routes = require('../routes');
@@ -39,15 +39,21 @@ module.exports = ({ app }) => {
   // Secure the app by setting various HTTP headers off.
   // app.use(helmet({ contentSecurityPolicy: false }));
 
-  // Secure the app by setting various HTTP headers off.
-  // app.use(helmet({ contentSecurityPolicy: false }));
-
   // Cookie Parser
   app.use(cookieParser(COOKIE_SECRET));
 
   // Transforms the raw string of req.body into json
   app.use(express.json());
 
+  const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  });
+
+  // Apply the rate limiting middleware to API calls only
+  app.use('', apiLimiter);
   // Load API routes
   app.use('', routes());
 

@@ -18,10 +18,10 @@ Veldora is a Backend as a Service (BaaS) that provides a RESTful API to store an
 
 ## TODO
 
-- [ ] Add lean to all get queries
+- [x] Add lean to all get queries
 - [ ] Create DB getter and setters ( getters that remove password and salt)
 - [ ] Add tests
 - [x] Add documentation
 - [ ] Add form builder
 - [x] Create crud pagination function
-- [ ] Add Rate limiter
+- [x] Add Rate limiter
