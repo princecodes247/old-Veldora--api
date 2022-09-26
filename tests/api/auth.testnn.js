@@ -1,7 +1,8 @@
 const { expect, describe, beforeAll, it, test, jest } = require('@jest/globals');
 const request = require('supertest');
 const express = require('express');
-const loaders = require('../../src/loaders/index');
+const loaders = require('../../src/loaders');
+const { api } = require('../../src/config');
 
 const app = express();
 
@@ -10,7 +11,7 @@ jest.setTimeout(15000);
 beforeAll(async () => {
   await loaders({ expressApp: app });
 });
-const path = '/api/auth';
+const path = `${api.prefix}/auth`;
 
 describe('Sign up auth routes', () => {
   it('Sign up', async () => {
