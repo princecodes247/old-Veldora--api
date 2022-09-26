@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 const config = require('../config');
 
-module.exports = async () => {
+module.exports = async dbString => {
   mongoose.Promise = global.Promise;
   const connection = await mongoose
-    .connect(config.databaseURL, {
+    .connect(dbString || config.databaseURL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
     .catch(err => console.log('err'));
 
-  return connection.connection.db;
+  const close = async () => {
+    await connection.connection.close();
+  };
+  return connection.connection;
 };

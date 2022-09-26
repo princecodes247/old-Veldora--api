@@ -12,6 +12,7 @@
     "dev": "nodemon --experimental-specifier-resolution=node src/app",
     "inspect": "nodemon --inspect src/app.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:trace": "node  --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
     "test:init": "jest --init",
     "lint": "eslint",
     "lint:eslint": "eslint --ignore-path .gitignore --ext .js",

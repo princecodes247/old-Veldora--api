@@ -4,7 +4,7 @@ const UserService = require('../services/user.service');
 class UserController {
   async getAllUsers(req, res, next) {
     try {
-      const users = await UserService.getAll();
+      const users = await UserService.getAll(req.body.page, req.body.limit);
       return res.json({ users }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);

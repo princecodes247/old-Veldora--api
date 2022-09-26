@@ -1,6 +1,6 @@
 const CRUD = require('./factories/crud.factory');
 
-const MemberModel = require('../models/member');
+const MemberModel = require('../models/member.model');
 
 class MemberService extends CRUD {}
 

@@ -1,7 +1,7 @@
 const { Container } = require('typedi');
 const CRUD = require('./factories/crud.factory');
 
-const WorkspaceModel = require('../models/workspace');
+const WorkspaceModel = require('../models/workspace.model');
 
 class WorkspaceService extends CRUD {
   async test() {

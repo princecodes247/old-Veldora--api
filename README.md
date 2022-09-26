@@ -22,6 +22,5 @@ Veldora is a Backend as a Service (BaaS) that provides a RESTful API to store an
 - [ ] Create DB getter and setters ( getters that remove password and salt)
 - [ ] Add tests
 - [x] Add documentation
-- [ ] Add form builder
 - [x] Create crud pagination function
 - [x] Add Rate limiter

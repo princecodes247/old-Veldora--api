@@ -4,7 +4,7 @@ const Logger = require('./logger');
 const { initializeEvents } = require('./events');
 
 module.exports = async ({ expressApp }) => {
-  const mongoConnection = await mongooseLoader();
+  await mongooseLoader();
   Logger.info('👌 DB loaded and connected!');
 
   initializeEvents();

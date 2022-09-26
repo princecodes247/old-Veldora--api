@@ -1,4 +1,4 @@
-const Submission = require('../models/submission');
+const Submission = require('../models/submission.model');
 const CRUD = require('./factories/crud.factory');
 
 class SubmissionService extends CRUD {

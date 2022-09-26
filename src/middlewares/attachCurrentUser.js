@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const { Container } = require('typedi');
 
-const user = require('../models/user');
+const user = require('../models/user.model');
 
 const attachCurrentUser = async (req, res, next) => {
   // const Logger = Container.get('logger');

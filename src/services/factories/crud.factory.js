@@ -7,26 +7,27 @@ class CRUD {
   }
 
   async _paginatedQuery({ limit, page, sort }, query = {}, mod = { __v: 0 }, populate = '') {
+    const _page = Number(page) || 1;
     const _limit = Number(limit) || 10;
-    const _skip = Number((page - 1) * limit) || 0;
+    const _skip = Number((_page - 1) * _limit) || 0;
     const _sort = sort || { createdAt: -1 };
 
     const result = await Promise.all([
-      this.Model.find(query, mod).skip(_skip).limit(_limit).sort(_sort).lean().populate(populate),
+      this.Model.find(query, mod).skip(_skip).limit(_limit).lean().populate(populate),
       this.Model.find(query, mod).countDocuments(),
     ]);
 
-    if (Number(page) * limit < result[1]) {
+    if (Number(_page) * _limit < result[1]) {
       return {
-        page,
-        next: page + 1,
+        page: _page,
+        next: _page + 1,
         limit: _limit,
         data: result[0],
         total: result[1],
       };
     }
     return {
-      page,
+      page: _page,
       next: null,
       limit: _limit,
       data: result[0],

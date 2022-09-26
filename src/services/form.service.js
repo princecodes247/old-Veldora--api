@@ -1,7 +1,7 @@
 const { Container } = require('typedi');
 const CRUD = require('./factories/crud.factory');
 
-const FormModel = require('../models/form');
+const FormModel = require('../models/form.model');
 
 class FormService extends CRUD {
   async create(data) {

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { randomBytes } = require('crypto');
-const UserModel = require('../models/user');
+const UserModel = require('../models/user.model');
 
 const logger = require('../loaders/logger');
 const config = require('../config');

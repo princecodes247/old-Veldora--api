@@ -1,15 +1,9 @@
 const CRUD = require('./factories/crud.factory');
 const { eventDispatcher } = require('../loaders/events');
-const UserModel = require('../models/user');
+const UserModel = require('../models/user.model');
 
 class UserService extends CRUD {
-  constructor() {
-    super();
-    this.model = UserModel;
-    // this.eventDispatcher = new EventDispatcher();
-  }
-
-  async getAll(limit, page) {
+  async getAll(page, limit) {
     return this._paginatedQuery({ limit, page }, {}, { password: 0, salt: 0, __v: 0 });
   }
 
@@ -19,4 +13,4 @@ class UserService extends CRUD {
   }
 }
 
-module.exports = new UserService();
+module.exports = new UserService(UserModel, 'User');
