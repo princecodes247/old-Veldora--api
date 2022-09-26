@@ -49,7 +49,11 @@ describe('Sign in auth routes', () => {
 });
 
 afterAll(async () => {
-  await UserModel.collection.drop();
+  try {
+    await UserModel.collection.drop();
+  } catch (error) {
+    console.log('User collection not found');
+  }
   // await db.close();
   await mongoose.connection.close();
   console.log('👌 DB disconnected');
