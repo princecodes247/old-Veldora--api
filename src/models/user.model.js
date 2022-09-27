@@ -19,6 +19,16 @@ const User = new mongoose.Schema(
 
     salt: String,
 
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+
+    suspended: {
+      type: Boolean,
+      default: false,
+    },
+
     role: {
       type: String,
       default: 'user',

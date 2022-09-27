@@ -59,6 +59,11 @@ module.exports = {
   /**
    * Mailgun email credentials
    */
+  role: {
+    // General roles
+    ADMIN: ['admin'],
+    USER: ['user', 'admin'],
+  },
   emails: {
     apiKey: process.env.MAILGUN_API_KEY,
     apiUsername: process.env.MAILGUN_USERNAME,

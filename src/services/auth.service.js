@@ -4,7 +4,7 @@ const { randomBytes } = require('crypto');
 const UserModel = require('../models/user.model');
 
 const logger = require('../loaders/logger');
-const config = require('../config');
+const { jwtSecret } = require('../config');
 const { user: userEvents } = require('../constants/events.constants');
 const { eventDispatcher } = require('../loaders/events');
 
@@ -99,7 +99,7 @@ class AuthService {
         name: user.name,
         exp: exp.getTime() / 1000,
       },
-      config.jwtSecret
+      jwtSecret
     );
   }
 
@@ -114,14 +114,14 @@ class AuthService {
           role: user.role,
           verified: user.isVerified,
         },
-        'JWT_SECRET',
+        jwtSecret,
         {
           expiresIn: '50m',
         }
       );
 
       this.logger.silly(`Generate Refresh Token: User ID ${user._id}`);
-      const refreshToken = jwt.sign({ id: user._id }, 'JWT_SECRET', {
+      const refreshToken = jwt.sign({ id: user._id }, jwtSecret, {
         expiresIn: '4w',
       });
       return { accessToken, refreshToken };
