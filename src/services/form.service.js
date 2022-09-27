@@ -18,6 +18,15 @@ class FormService extends CRUD {
       error: false,
     };
   }
+
+  // async getOne(id) {
+  //   const item = await this.Model.findOne({ _id: id }, { __v: 0 }).populate('workspace').lean();
+  //   // const item = await this.Model.findOne({ _id: id }, { password: 0, __v: 0 });
+  //   if (!item) {
+  //     throw new Error(`${this.serviceName} does not exist`);
+  //   }
+  //   return item;
+  // }
 }
 
 module.exports = new FormService(FormModel, 'Form');

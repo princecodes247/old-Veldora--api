@@ -26,7 +26,7 @@ class FormController {
   async getOne(req, res, next) {
     try {
       const form = await FormService.getOne(req.params.formId);
-      return res.json({ form }).status(200);
+      return res.json(form).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
       return next(e);

@@ -4,7 +4,7 @@ const config = require('../config');
 const WorkspaceController = require('../controllers/workspace.controller');
 const FormController = require('../controllers/form.controller');
 // const SuController = require('../controllers/user.controller');
-const { attachCurrentUser, isAuth } = require('../middlewares');
+const { isCurrentUser, isWorkspaceMember, isAuth } = require('../middlewares');
 const SubmissionController = require('../controllers/submission.controller');
 const { role } = require('../config');
 
@@ -23,12 +23,13 @@ module.exports = app => {
         quota: Joi.any().forbidden(),
       }),
     }),
+    isAuth(role.USER),
     WorkspaceController.create
   );
   route.get('/', isAuth(role.ADMIN), WorkspaceController.getAll);
   // route.get('/test', WorkspaceController.test);
 
-  route.get('/:workspaceId', WorkspaceController.getOne);
-  route.get('/:workspaceId/settings', WorkspaceController.getOne);
-  route.get('/:workspaceId/members', WorkspaceController.getOne);
+  route.get('/:workspaceId', isAuth(role.USER), isWorkspaceMember, WorkspaceController.getOne);
+  route.get('/:workspaceId/settings', isAuth(role.USER), isWorkspaceMember, WorkspaceController.getOne);
+  route.get('/:workspaceId/members', isAuth(role.USER), isWorkspaceMember, WorkspaceController.getOne);
 };

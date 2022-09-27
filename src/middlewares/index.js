@@ -1,9 +1,11 @@
-const attachCurrentUser = require('./attachCurrentUser');
+const isCurrentUser = require('./isCurrentUser');
 const isAuth = require('./isAuth');
+const isWorkspaceMember = require('./isWorkspaceMember');
 
-// export { attachCurrentUser, isAuth };
+// export { isCurrentUser, isAuth };
 
 module.exports = {
-  attachCurrentUser,
   isAuth,
+  isCurrentUser,
+  isWorkspaceMember,
 };
