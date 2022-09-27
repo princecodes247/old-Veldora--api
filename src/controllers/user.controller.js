@@ -22,7 +22,7 @@ class UserController {
     }
   }
 
-  async test(req, res) {
+  async getUserDetails(req, res) {
     const test = await UserService.test();
     return res.json({ test }).status(200);
   }
