@@ -14,7 +14,7 @@ class UserController {
 
   async getOne(req, res, next) {
     try {
-      const users = await UserService.getOne(req.userId);
+      const users = await UserService.getOne(req.params.userId);
       return res.json({ users }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
@@ -23,8 +23,7 @@ class UserController {
   }
 
   async getUserDetails(req, res) {
-    const test = await UserService.test();
-    return res.json({ test }).status(200);
+    return res.json({ data: req.$user }).status(200);
   }
 }
 

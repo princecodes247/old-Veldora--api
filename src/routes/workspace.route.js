@@ -6,6 +6,7 @@ const FormController = require('../controllers/form.controller');
 // const SuController = require('../controllers/user.controller');
 const { attachCurrentUser, isAuth } = require('../middlewares');
 const SubmissionController = require('../controllers/submission.controller');
+const { role } = require('../config');
 
 const route = Router();
 
@@ -24,11 +25,7 @@ module.exports = app => {
     }),
     WorkspaceController.create
   );
-  route.get(
-    '/',
-    // isAuth,
-    WorkspaceController.getAll
-  );
+  route.get('/', isAuth(role.ADMIN), WorkspaceController.getAll);
   // route.get('/test', WorkspaceController.test);
 
   route.get('/:workspaceId', WorkspaceController.getOne);

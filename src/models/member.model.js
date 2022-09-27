@@ -7,7 +7,7 @@ const Member = new mongoose.Schema(
       ref: 'User',
     },
     workspace: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: 'Workspace',
     },
     role: {

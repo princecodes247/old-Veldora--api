@@ -1,5 +1,5 @@
 const WorkspaceService = require('../services/workspace.service');
-
+const MemberService = require('../services/member.service');
 const UserService = require('../services/user.service');
 const MailService = require('../services/mail.service');
 
@@ -34,8 +34,13 @@ const onUserSignUp = async ({ name, email, _id }) => {
   logger.silly(emailResult);
   try {
     logger.silly(`Creating ${name}'s first workspace`);
-    WorkspaceService.create({
+    const workspace = await WorkspaceService.create({
       owner: _id,
+    });
+    await MemberService.create({
+      user: _id,
+      workspace: workspace.result._id,
+      role: 'owner',
     });
   } catch (e) {
     logger.error(`🔥 Error on event ${events.user.SIGN_UP}: %o`, e);

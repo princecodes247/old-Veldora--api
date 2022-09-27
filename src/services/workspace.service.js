@@ -3,12 +3,6 @@ const CRUD = require('./factories/crud.factory');
 
 const WorkspaceModel = require('../models/workspace.model');
 
-class WorkspaceService extends CRUD {
-  async test() {
-    const eventDispatcher = Container.get('eventDispatcher');
-    eventDispatcher.dispatch('users');
-    return 'test';
-  }
-}
+class WorkspaceService extends CRUD {}
 
 module.exports = new WorkspaceService(WorkspaceModel, 'Workspace');

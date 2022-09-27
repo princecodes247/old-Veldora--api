@@ -15,7 +15,6 @@ function isAuth(roles = []) {
     try {
       const bearerHeader = req.headers.authorization;
       const signedCookie = req.signedCookies[ACCESS_TOKEN];
-      console.log('signedCookie', signedCookie);
       if (!signedCookie && !bearerHeader) {
         throw new Error('Unauthorized access: Authorization token not passed');
       }
@@ -37,7 +36,7 @@ function isAuth(roles = []) {
         throw new Error('Unauthorized access: Invalid token');
       }
 
-      const user = await User.findOne({ _id: decoded.uid }, { password: 0, __v: 0 });
+      const user = await User.findOne({ _id: decoded.uid }, { salt: 0, password: 0, __v: 0 });
 
       if (!user) {
         throw new Error('Unauthorized access: User not found');
