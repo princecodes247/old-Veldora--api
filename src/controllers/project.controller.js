@@ -1,12 +1,12 @@
 const logger = require('../loaders/logger');
-const FormService = require('../services/form.service');
+const ProjectService = require('../services/project.service');
 
-class FormController {
+class ProjectController {
   async create(req, res, next) {
     try {
       const { workspaceId } = req.params;
-      const form = await FormService.create({ ...req.body, workspace: workspaceId });
-      return res.json({ form }).status(200);
+      const project = await ProjectService.create({ ...req.body, workspace: workspaceId });
+      return res.json({ project }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
       return next(e);
@@ -15,7 +15,7 @@ class FormController {
 
   async getAll(req, res, next) {
     try {
-      const users = await FormService.getAll();
+      const users = await ProjectService.getAll();
       return res.json({ users }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
@@ -25,8 +25,8 @@ class FormController {
 
   async getOne(req, res, next) {
     try {
-      const form = await FormService.getOne(req.params.formId);
-      return res.json(form).status(200);
+      const project = await ProjectService.getOne(req.params.projectId);
+      return res.json(project).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
       return next(e);
@@ -34,4 +34,4 @@ class FormController {
   }
 }
 
-module.exports = new FormController();
+module.exports = new ProjectController();

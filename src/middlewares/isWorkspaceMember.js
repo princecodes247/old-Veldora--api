@@ -1,4 +1,4 @@
-const FormService = require('../services/form.service');
+const ProjectService = require('../services/project.service');
 const MemberService = require('../services/member.service');
 
 async function isWorkspaceMember(req, res, next) {
@@ -8,7 +8,7 @@ async function isWorkspaceMember(req, res, next) {
     let workspaceId = req?.params?.workspaceId || req?.body?.workspaceId;
 
     if (formId) {
-      const form = await FormService.getOne(formId);
+      const form = await ProjectService.getOne(formId);
 
       workspaceId = form.workspace;
     }

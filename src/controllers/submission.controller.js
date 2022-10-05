@@ -4,8 +4,8 @@ const SubmissionService = require('../services/submission.service');
 class SubmissionController {
   async create(req, res, next) {
     try {
-      const { formId } = req.params;
-      const submission = await SubmissionService.create({ ...req.body, form: formId });
+      const { projectId } = req.params;
+      const submission = await SubmissionService.create({ ...req.body, project: projectId });
       return res.json(submission).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
@@ -25,16 +25,16 @@ class SubmissionController {
 
   async getOne(req, res, next) {
     try {
-      const form = await SubmissionService.getOne(req.params.formId);
-      return res.json({ form }).status(200);
+      const project = await SubmissionService.getOne(req.params.projectId);
+      return res.json({ project }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
       return next(e);
     }
   }
 
-  async getFormSubmissions(req, res) {
-    const test = await SubmissionService.getFormSubmissions();
+  async getProjectSubmissions(req, res) {
+    const test = await SubmissionService.getProjectSubmissions();
     return res.json({ test }).status(200);
   }
 }

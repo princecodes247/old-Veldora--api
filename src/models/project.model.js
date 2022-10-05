@@ -3,7 +3,7 @@ const { nanoid } = require('nanoid');
 
 const { Schema } = mongoose;
 
-const Form = new mongoose.Schema(
+const Project = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -30,6 +30,6 @@ const Form = new mongoose.Schema(
   { timestamps: true }
 );
 
-Form.index({ name: 'text', description: 'text' });
+Project.index({ name: 'text', description: 'text' });
 
-module.exports = mongoose.model('Form', Form);
+module.exports = mongoose.model('Project', Project);

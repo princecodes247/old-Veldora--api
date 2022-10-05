@@ -1,11 +1,11 @@
 const { Container } = require('typedi');
 const CRUD = require('./factories/crud.factory');
 
-const FormModel = require('../models/form.model');
+const ProjectModel = require('../models/project.model');
 
-class FormService extends CRUD {
+class ProjectService extends CRUD {
   async create(data) {
-    const result = new FormModel(data);
+    const result = new ProjectModel(data);
     await result.save().catch(err => {
       console.log('ji');
       // logger.error('🔥 error: %o', e);
@@ -29,4 +29,4 @@ class FormService extends CRUD {
   // }
 }
 
-module.exports = new FormService(FormModel, 'Form');
+module.exports = new ProjectService(ProjectModel, 'Project');

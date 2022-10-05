@@ -8,6 +8,7 @@ const loaders = require('./loaders');
 const Logger = require('./loaders/logger');
 
 async function startServer() {
+  
   const app = express();
 
   // await require('../loaders').default({ expressApp: app });
