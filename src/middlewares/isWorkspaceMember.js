@@ -15,7 +15,7 @@ async function isWorkspaceMember(req, res, next) {
 
     if (await MemberService.validateInWorkspace(req.$user._id, workspaceId)) return next();
 
-    return res.status(403).json({ message: `Not authorized to workspace` });
+    return res.status(403).json({ message: 'Not authorized to workspace' });
   } catch (error) {
     throw next(error);
   }
