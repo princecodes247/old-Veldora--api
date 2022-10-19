@@ -15,4 +15,4 @@ module.exports = class EmailSequenceJob {
       done(e);
     }
   }
-}
+};
