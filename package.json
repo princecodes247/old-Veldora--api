@@ -1,7 +1,7 @@
 {
-  "name": "kamepay-api",
+  "name": "veldora-api",
   "version": "1.0.0",
-  "description": "Kamepay API",
+  "description": "Veldora API",
   "engines": {
     "node": ">=14.20.0"
   },
