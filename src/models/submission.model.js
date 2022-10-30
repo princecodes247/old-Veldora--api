@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Submission = new mongoose.Schema(
   {
     data: Object,
-    form: {
+    project: {
       type: String,
-      required: [true, 'Form ID is required'],
+      required: [true, 'Project ID is required'],
     },
     date: {
       type: Date,

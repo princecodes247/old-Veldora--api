@@ -15,6 +15,7 @@ function isAuth(roles = []) {
     try {
       const bearerHeader = req.headers.authorization;
       const signedCookie = req.signedCookies[ACCESS_TOKEN];
+
       if (!signedCookie && !bearerHeader) {
         throw new Error('Unauthorized access: Authorization token not passed');
       }
@@ -44,9 +45,9 @@ function isAuth(roles = []) {
       if (user.suspended) {
         throw new Error('Unauthorized access: User has been deactivated');
       }
-      if (!user.verified) {
-        throw new Error("Unauthorized access: User hasn't onboarded");
-      }
+      // if (!user.verified) {
+      //   throw new Error("Unauthorized access: User hasn't onboarded");
+      // }
 
       if (user.role === role.ADMIN) {
         req.$user = user;

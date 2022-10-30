@@ -4,8 +4,7 @@ const ProjectService = require('../services/project.service');
 class ProjectController {
   async create(req, res, next) {
     try {
-      const { workspaceId } = req.params;
-      const project = await ProjectService.create({ ...req.body, workspace: workspaceId });
+      const project = await ProjectService.create({ ...req.body, owner: req.$user._id });
       return res.json({ project }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
@@ -31,6 +30,12 @@ class ProjectController {
       logger.error('🔥 error: %o', e);
       return next(e);
     }
+  }
+
+  async getUserProjects(req, res) {
+    const projects = await ProjectService.getUserProjects(req.$user._id);
+
+    return res.json(projects).status(200);
   }
 }
 

@@ -13,7 +13,8 @@ module.exports = app => {
 
   // Projects Routes
   route.post('/', isAuth(role.USER), isWorkspaceMember, ProjectController.create);
-  route.get('/', isAuth(role.ADMIN), isWorkspaceMember, ProjectController.getAll);
+  route.get('/', isAuth(role.USER), ProjectController.getUserProjects);
+  route.get('/get-all', isAuth(role.ADMIN), isWorkspaceMember, ProjectController.getAll);
   route.get('/:projectId', isAuth(role.USER), isWorkspaceMember, ProjectController.getOne);
   route.get(
     '/:projectId/submissions',

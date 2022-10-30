@@ -23,7 +23,7 @@ const refreshCookieOptions = {
   maxAge: 1000 * 60 * 60 * 24 * 7 * 4, // 1 month
 };
 
-const COOKIE_SECRET = process.env.JWT_SECRET || '000';
+const COOKIE_SECRET = process.env.COOKIE_SECRET || '000';
 
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN || 'veldora_refresh_token';
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN || 'veldora_access_token';

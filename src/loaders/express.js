@@ -29,7 +29,21 @@ module.exports = ({ app }) => {
   // The magic package that prevents frontend developers going nuts
   // Alternate description:
   // Enable Cross Origin Resource Sharing to all origins by default
-  app.use(cors());
+  // const corsOptions = {
+  //   origin: 'http://localhost:5173',
+  //   credentials: true, //access-control-allow-credentials:true
+  //   optionSuccessStatus: 200,
+  // };
+  // app.use(cors(corsOptions));
+
+  const whitelist = ['http://localhost:3000', 'http://localhost:5173'];
+
+  app.use(
+    cors({
+      origin: whitelist,
+      credentials: true,
+    })
+  );
 
   // Some sauce that always add since 2014
   // "Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it."

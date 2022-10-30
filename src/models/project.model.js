@@ -21,10 +21,10 @@ const Project = new mongoose.Schema(
       default: '',
     },
 
-    workspace: {
+    owner: {
       type: String,
-      ref: 'Workspace',
-      required: [true, 'Workspace is required'],
+      ref: 'User',
+      required: [true, 'Owner is required'],
     },
   },
   { timestamps: true }
