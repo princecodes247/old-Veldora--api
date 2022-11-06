@@ -24,14 +24,16 @@ class ProjectService extends CRUD {
     console.log(items);
     return items;
   }
-  // async getOne(id) {
-  //   const item = await this.Model.findOne({ _id: id }, { __v: 0 }).populate('workspace').lean();
-  //   // const item = await this.Model.findOne({ _id: id }, { password: 0, __v: 0 });
-  //   if (!item) {
-  //     throw new Error(`${this.serviceName} does not exist`);
-  //   }
-  //   return item;
-  // }
+
+  async addSubmission(id, data) {
+    const project = await this.Model.findOne({ _id: id }, { __v: 0 });
+    const submission = { data };
+    project.submissions.push(submission);
+
+    await project.save();
+
+    return submission;
+  }
 }
 
 module.exports = new ProjectService(ProjectModel, 'Project');

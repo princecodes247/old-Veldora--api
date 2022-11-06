@@ -1,7 +1,35 @@
 const mongoose = require('mongoose');
+
 const { nanoid } = require('nanoid');
 
 const { Schema } = mongoose;
+
+const Submission = new mongoose.Schema(
+  {
+    data: Object,
+
+    date: {
+      type: Date,
+      default: Date.now(),
+    },
+  },
+  { timestamps: true }
+);
+
+const Member = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    role: {
+      type: String,
+      enum: ['owner', 'admin', 'member'],
+      default: 'member',
+    },
+  },
+  { timestamps: true }
+);
 
 const Project = new mongoose.Schema(
   {
@@ -20,12 +48,8 @@ const Project = new mongoose.Schema(
       type: String,
       default: '',
     },
-
-    owner: {
-      type: String,
-      ref: 'User',
-      required: [true, 'Owner is required'],
-    },
+    collaborators: [Member],
+    submissions: [Submission],
   },
   { timestamps: true }
 );

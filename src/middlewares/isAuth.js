@@ -23,7 +23,7 @@ function isAuth(roles = []) {
 
       if (bearerHeader) {
         const bearer = bearerHeader.split(' ');
-        [token] = bearer;
+        [, token] = bearer;
       } else if (signedCookie) {
         token = signedCookie;
       } else {

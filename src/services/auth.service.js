@@ -28,7 +28,7 @@ class AuthService {
         password: hashedPassword,
       });
       this.logger.silly('Generating JWT');
-      const token = this.generateToken(userRecord);
+      const token = this.generateTokens(userRecord);
 
       if (!userRecord) {
         throw new Error('User cannot be created');
@@ -125,6 +125,19 @@ class AuthService {
         expiresIn: '4w',
       });
       return { accessToken, refreshToken };
+    } catch ({ message }) {
+      throw new Error(`500---${message}`);
+    }
+  }
+
+  async refreshTokens(refreshToken) {
+    try {
+      const { id } = jwt.verify(refreshToken, jwtSecret);
+      const user = await UserModel.findById(id);
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return this.generateTokens(user);
     } catch ({ message }) {
       throw new Error(`500---${message}`);
     }

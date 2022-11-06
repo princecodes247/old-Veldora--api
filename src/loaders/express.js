@@ -36,14 +36,16 @@ module.exports = ({ app }) => {
   // };
   // app.use(cors(corsOptions));
 
-  const whitelist = ['http://localhost:3000', 'http://localhost:5173'];
+  // const whitelist = ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:5173'];
 
-  app.use(
-    cors({
-      origin: whitelist,
-      credentials: true,
-    })
-  );
+  // app.use(
+  //   cors({
+  //     origin: whitelist,
+  //     credentials: true,
+  //   })
+  // );
+
+  app.use(cors('*'));
 
   // Some sauce that always add since 2014
   // "Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it."

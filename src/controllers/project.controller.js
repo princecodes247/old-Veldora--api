@@ -1,10 +1,11 @@
 const logger = require('../loaders/logger');
+const MemberService = require('../services/member.service');
 const ProjectService = require('../services/project.service');
 
 class ProjectController {
   async create(req, res, next) {
     try {
-      const project = await ProjectService.create({ ...req.body, owner: req.$user._id });
+      const project = await ProjectService.create({ ...req.body, collaborators: [req.$user._id] });
       return res.json({ project }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
@@ -36,6 +37,19 @@ class ProjectController {
     const projects = await ProjectService.getUserProjects(req.$user._id);
 
     return res.json(projects).status(200);
+  }
+
+  async addSubmission(req, res) {
+    const { projectID } = req.params;
+    const result = await ProjectService.addSubmission(projectID, req.body);
+
+    // return res.json(projects).status(200);
+  }
+  async addCollaborator(req, res) {
+    const { projectID } = req.params;
+    const result = await ProjectService.addSubmission(projectID, req.body);
+
+    // return res.json(projects).status(200);
   }
 }
 

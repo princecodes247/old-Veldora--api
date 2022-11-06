@@ -12,7 +12,7 @@ module.exports = app => {
   app.use(`${config.api.prefix}/projects`, route);
 
   // Projects Routes
-  route.post('/', isAuth(role.USER), isWorkspaceMember, ProjectController.create);
+  route.post('/', isAuth(role.USER), ProjectController.create);
   route.get('/', isAuth(role.USER), ProjectController.getUserProjects);
   route.get('/get-all', isAuth(role.ADMIN), isWorkspaceMember, ProjectController.getAll);
   route.get('/:projectId', isAuth(role.USER), isWorkspaceMember, ProjectController.getOne);

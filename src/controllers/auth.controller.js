@@ -21,9 +21,9 @@ class AuthController {
       const { user, tokens } = await AuthService.signIn(email, password);
 
       const { accessToken, refreshToken } = tokens;
-
-      res.cookie(REFRESH_TOKEN, refreshToken, refreshCookieOptions);
-      res.cookie(ACCESS_TOKEN, accessToken, cookieOptions);
+      console.log({ accessToken });
+      // res.cookie(REFRESH_TOKEN, refreshToken, refreshCookieOptions);
+      // res.cookie(ACCESS_TOKEN, accessToken, cookieOptions);
       return res.json({ user, accessToken, refreshToken }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
