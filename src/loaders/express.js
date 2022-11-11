@@ -45,7 +45,17 @@ module.exports = ({ app }) => {
   //   })
   // );
 
-  app.use(cors('*'));
+  app.use(
+    cors({
+      origin: '*',
+    })
+  );
+  app.use((req, res, next) => {
+    const { origin } = req.headers;
+    res.set('Origin', origin);
+    res.vary('Origin');
+    next();
+  });
 
   // Some sauce that always add since 2014
   // "Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it."

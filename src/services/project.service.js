@@ -19,6 +19,12 @@ class ProjectService extends CRUD {
     };
   }
 
+  async editSettings(id, body) {
+    const items = await this.Model.find({ owner: id }, { __v: 0 }).lean();
+    console.log(items);
+    return items;
+  }
+
   async getUserProjects(id) {
     const items = await this.Model.find({ owner: id }, { __v: 0 }).lean();
     console.log(items);

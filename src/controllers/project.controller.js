@@ -43,13 +43,32 @@ class ProjectController {
     const { projectID } = req.params;
     const result = await ProjectService.addSubmission(projectID, req.body);
 
-    // return res.json(projects).status(200);
+    return res.json(result).status(201);
   }
+
   async addCollaborator(req, res) {
     const { projectID } = req.params;
     const result = await ProjectService.addSubmission(projectID, req.body);
 
-    // return res.json(projects).status(200);
+    return res.json(result).status(201);
+  }
+
+  async delete(req, res) {
+    const { projectID } = req.params;
+    await ProjectService.delete(projectID);
+
+    return res
+      .json({
+        message: 'Deleted Successfully',
+      })
+      .status(201);
+  }
+
+  async editSettings(req, res) {
+    const { projectID } = req.params;
+    const result = await ProjectService.addSubmission(projectID, req.body);
+
+    return res.json(result).status(201);
   }
 }
 
