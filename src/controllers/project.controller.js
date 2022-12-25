@@ -1,11 +1,12 @@
 const logger = require('../loaders/logger');
 const MemberService = require('../services/member.service');
 const ProjectService = require('../services/project.service');
+const SubmissionService = require('../services/submission.service');
 
 class ProjectController {
   async create(req, res, next) {
     try {
-      const project = await ProjectService.create({ ...req.body, collaborators: [req.$user._id] });
+      const project = await ProjectService.create(req.body, req.$user._id);
       return res.json({ project }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
@@ -15,8 +16,8 @@ class ProjectController {
 
   async getAll(req, res, next) {
     try {
-      const users = await ProjectService.getAll();
-      return res.json({ users }).status(200);
+      const projects = await ProjectService.getAll();
+      return res.json({ projects }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
       return next(e);
@@ -25,8 +26,10 @@ class ProjectController {
 
   async getOne(req, res, next) {
     try {
+      const { limit, page } = req.query;
       const project = await ProjectService.getOne(req.params.projectId);
-      return res.json(project).status(200);
+      const submissions = await SubmissionService.getProjectSubmissions(req.params.projectId, { limit, page });
+      return res.json({ project, submissions }).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
       return next(e);
@@ -34,23 +37,17 @@ class ProjectController {
   }
 
   async getUserProjects(req, res) {
-    const projects = await ProjectService.getUserProjects(req.$user._id);
-
+    const { limit, page } = req.query;
+    const projects = await ProjectService.getUserProjects(req.$user._id, { limit, page });
     return res.json(projects).status(200);
   }
 
-  async addSubmission(req, res) {
-    const { projectID } = req.params;
-    const result = await ProjectService.addSubmission(projectID, req.body);
-
-    return res.json(result).status(201);
-  }
-
+  // NOT DONE
   async addCollaborator(req, res) {
     const { projectID } = req.params;
-    const result = await ProjectService.addSubmission(projectID, req.body);
+    // const result = await ProjectService.addCollaborator(projectID, req.body);
 
-    return res.json(result).status(201);
+    // return res.json(result).status(201);
   }
 
   async delete(req, res) {
@@ -64,9 +61,10 @@ class ProjectController {
       .status(201);
   }
 
+  // DONE (TEST)
   async editSettings(req, res) {
     const { projectID } = req.params;
-    const result = await ProjectService.addSubmission(projectID, req.body);
+    const result = await ProjectService.editSettings(projectID, req.body);
 
     return res.json(result).status(201);
   }

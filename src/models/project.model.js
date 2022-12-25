@@ -21,6 +21,7 @@ const Member = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
     role: {
       type: String,
@@ -48,8 +49,12 @@ const Project = new mongoose.Schema(
       type: String,
       default: '',
     },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     collaborators: [Member],
-    submissions: [Submission],
   },
   { timestamps: true }
 );

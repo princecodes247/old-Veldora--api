@@ -16,6 +16,10 @@ const User = new mongoose.Schema(
     },
 
     password: String,
+    quota: {
+      type: Number,
+      default: 50,
+    },
 
     salt: String,
 

@@ -1,11 +1,14 @@
 const logger = require('../loaders/logger');
 const SubmissionService = require('../services/submission.service');
+const UserService = require('../services/user.service');
 
 class SubmissionController {
   async create(req, res, next) {
     try {
       const { projectId } = req.params;
+      const { owner } = await ProjectService.getOne(projectId);
       const submission = await SubmissionService.create({ ...req.body, project: projectId });
+      await UserService.updateQuota(owner, -1);
       return res.json(submission).status(200);
     } catch (e) {
       logger.error('🔥 error: %o', e);
@@ -31,11 +34,6 @@ class SubmissionController {
       logger.error('🔥 error: %o', e);
       return next(e);
     }
-  }
-
-  async getProjectSubmissions(req, res) {
-    const test = await SubmissionService.getProjectSubmissions();
-    return res.json({ test }).status(200);
   }
 }
 

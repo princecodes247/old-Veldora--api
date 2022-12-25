@@ -14,14 +14,9 @@ module.exports = app => {
   // Projects Routes
   route.post('/', isAuth(role.USER), ProjectController.create);
   route.get('/', isAuth(role.USER), ProjectController.getUserProjects);
-  route.get('/get-all', isAuth(role.ADMIN), isWorkspaceMember, ProjectController.getAll);
-  route.get('/:projectId', isAuth(role.USER), isWorkspaceMember, ProjectController.getOne);
-  route.get(
-    '/:projectId/submissions',
-    isAuth(role.USER),
-    isWorkspaceMember,
-    SubmissionController.getProjectSubmissions
-  );
+  route.get('/get-all', isAuth(role.USER), ProjectController.getUserProjects);
+  route.get('/admin-get-all', isAuth(role.ADMIN), ProjectController.getAll);
+  route.get('/:projectId', isAuth(role.USER), ProjectController.getOne);
   // route.get('/:workspaceId/projects/:projectId/analytics', WorkspaceController.getAnalytics);
   // route.get('/:workspaceId/projects/:projectId/exports', WorkspaceController.export);
   // route.get('/:workspaceId/projects/:projectId/settings', WorkspaceController.settings);
