@@ -6,6 +6,7 @@ class UserService extends CRUD {
   async getAll(page, limit) {
     return this._paginatedQuery({ limit, page }, {}, { password: 0, salt: 0, __v: 0 });
   }
+
   async updateQuota(id, value) {
     const user = await this.Model.findById(id);
     user.quota = user.quota + value;
